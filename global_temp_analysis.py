@@ -18,5 +18,8 @@ df["Date"] = pd.to_datetime(df["Year"], format="%Y-%m")
 # Convert to Unix epoch
 df["UnixEpoch"] = df["Date"].astype("int64") // 10**9
 
-print(df.head())
-print(df.dtypes)
+# Pivot so that each source is a column, using 'Date' as index
+df_pivot = df.pivot(index="Date", columns="Source", values="Mean")
+
+# Display the first few rows
+print(df_pivot.head())
