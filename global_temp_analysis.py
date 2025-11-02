@@ -21,5 +21,14 @@ df["UnixEpoch"] = df["Date"].astype("int64") // 10**9
 # Pivot so that each source is a column, using 'Date' as index
 df_pivot = df.pivot(index="Date", columns="Source", values="Mean")
 
-# Display the first few rows
-print(df_pivot.head())
+# Drop rows with NaN values & calculate the diff between gcac and GISTEMP
+comparison = df_pivot.dropna().copy()
+comparison["Difference"] = comparison["gcag"] - comparison["GISTEMP"]
+
+# Display summary statistics
+print("\nComparison summary:")
+print(comparison.describe())
+
+# Show the first few difference values
+print("\nSample differences:")
+print(comparison.head())
