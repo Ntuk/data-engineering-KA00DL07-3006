@@ -1,5 +1,6 @@
 import pandas as pd
 import sqlite3
+import matplotlib.pyplot as plt
 
 url = "https://raw.githubusercontent.com/datasets/global-temp/master/data/monthly.csv"
 df = pd.read_csv(url)
@@ -32,3 +33,15 @@ print(comparison.describe())
 # Show the first few difference values
 print("\nSample differences:")
 print(comparison.head())
+
+# Plot temperature trends from both sources
+plt.figure(figsize=(10, 6))
+plt.plot(df_pivot.index, df_pivot["gcag"], label="GCAG", color="orange")
+plt.plot(df_pivot.index, df_pivot["GISTEMP"], label="GISTEMP", color="blue")
+plt.title("Global Temperature Trends")
+plt.xlabel("Year")
+plt.ylabel("Temperature Anomaly °c")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
