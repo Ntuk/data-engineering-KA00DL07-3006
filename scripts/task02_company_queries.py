@@ -33,4 +33,27 @@ GROUP BY ep.project_id;
 df_costs = pd.read_sql_query(query_salary_costs, conn)
 print(df_costs.head())
 
+# Join salary costs per project with project budgets
+query_join_budget = """
+SELECT
+    p.project_id,
+    p.budget,
+    sc.salary_costs
+FROM projects AS p
+JOIN (
+    SELECT
+        ep.project_id,
+        SUM((er.salary / 1900.0) * ep.hours_worked) AS salary_costs
+    FROM employee_projects AS ep
+    JOIN employees_realistic AS er
+        ON ep.employee_id = er.employee_id
+    GROUP BY ep.project_id
+) AS sc
+    ON p.project_id = sc.project_id;
+"""
+
+df_budget = pd.read_sql_query(query_join_budget, conn)
+print("\nJoined with budgets:")
+print(df_budget.head())
+
 conn.close()
