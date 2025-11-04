@@ -2,15 +2,22 @@ import pandas as pd
 import sqlite3
 import matplotlib.pyplot as plt
 import numpy as np
+import os
+
+# Create output directory
+output_dir = "./data/global_temp"
+os.makedirs(output_dir, exist_ok=True)
 
 url = "https://raw.githubusercontent.com/datasets/global-temp/master/data/monthly.csv"
 df = pd.read_csv(url)
 
 # Save to CSV
-df.to_csv("global_temp.csv", index=False)
+csv_path = os.path.join(output_dir, "global_temp.csv")
+df.to_csv(csv_path, index=False)
 
 # Save to SQLite db
-conn = sqlite3.connect("global_temp.db")
+db_path = os.path.join(output_dir, "global_temp.db")
+conn = sqlite3.connect(db_path)
 df.to_sql("global_temperature", conn, if_exists="replace", index=False)
 conn.close()
 
@@ -41,11 +48,11 @@ plt.plot(df_pivot.index, df_pivot["gcag"], label="GCAG", color="orange")
 plt.plot(df_pivot.index, df_pivot["GISTEMP"], label="GISTEMP", color="blue")
 plt.title("Global Temperature Trends")
 plt.xlabel("Year")
-plt.ylabel("Temperature Anomaly °c")
+plt.ylabel("Temperature Anomaly °C")
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("temperature_trends.png")
+plt.savefig(os.path.join(output_dir, "temperature_trends.png"))
 plt.close()
 
 # Interpolate missing values
@@ -78,8 +85,8 @@ plt.ylabel("Temperature Anomaly (°C)")
 plt.legend()
 plt.grid(True)
 plt.tight_layout()
-plt.savefig("temperature_projection.png")
+plt.savefig(os.path.join(output_dir, "temperature_projection.png"))
 plt.close()
 
 # Display estimated anomaly in 10 years
-print(f"\nEstimated anomaly in 10 years (GCAG): {y_future[-1]:.3f} °c")
+print(f"\nEstimated anomaly in 10 years (GCAG): {y_future[-1]:.3f} °C")
