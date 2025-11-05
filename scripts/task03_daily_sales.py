@@ -33,9 +33,9 @@ print(df_sales.head())
 # Plot daily total sales
 plt.figure(figsize=(10, 6))
 plt.plot(df_sales["order_day"], df_sales["daily_sales"], marker="o", linestyle="-", color="teal")
-plt.title("Daily Total Sales")
+plt.title("Daily total sales")
 plt.xlabel("Date")
-plt.ylabel("Total Sales (€)")
+plt.ylabel("Total sales (€)")
 
 # Format the x-axis for better readability
 plt.gca().xaxis.set_major_formatter(mdates.DateFormatter("%Y-%m"))
