@@ -18,17 +18,17 @@ SELECT
   user_pseudo_id,
   COUNT(event_name) AS event_count,
   SUM(
-    CAST(
-      (SELECT ep.value.float_value 
-       FROM UNNEST(event_params) ep 
-       WHERE ep.key = "purchase_revenue_in_usd"
-      ) AS FLOAT64
-    )
+    COALESCE(
+      (SELECT ep.value.int_value
+       FROM UNNEST(event_params) AS ep
+       WHERE ep.key = 'value'),
+      0)
   ) AS total_revenue
 FROM
   `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
 WHERE
-  _TABLE_SUFFIX BETWEEN '20210115' AND '20210131'
+  _TABLE_SUFFIX BETWEEN '20210101' AND '20210131'
+  AND event_name = 'purchase'
 GROUP BY
   user_pseudo_id
 ORDER BY
@@ -41,3 +41,4 @@ FROM
   `oamk-476515.G4_daily_user.G4_daily_user_data`
 ORDER BY
   total_revenue DESC;
+  
