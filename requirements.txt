@@ -1,7 +1,6 @@
 pandas
 numpy
 matplotlib
-sqlite3-binary
 seaborn
 jupyter
 google-cloud-bigquery
@@ -11,3 +10,4 @@ folium
 pandas-profiling
 pyarrow
 requests
+db-dtypes
