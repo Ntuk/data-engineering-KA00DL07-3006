@@ -33,3 +33,11 @@ GROUP BY
   user_pseudo_id
 ORDER BY
   total_revenue DESC;
+
+-- Task 08c – Query data from BigQuery table for local pandas import
+SELECT
+  *
+FROM
+  `oamk-476515.G4_daily_user.G4_daily_user_data`
+ORDER BY
+  total_revenue DESC;
