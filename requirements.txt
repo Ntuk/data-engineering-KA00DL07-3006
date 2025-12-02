@@ -7,7 +7,9 @@ google-cloud-bigquery
 google-cloud-storage
 streamlit
 folium
-pandas-profiling
+ydata-profiling
+great-expectations
+pydantic-settings
 pyarrow
 requests
 db-dtypes
