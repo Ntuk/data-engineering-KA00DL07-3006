@@ -11,3 +11,4 @@ great-expectations
 pyarrow
 requests
 db-dtypes
+kafka-python
