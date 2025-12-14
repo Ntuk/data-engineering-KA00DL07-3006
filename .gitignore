@@ -1,0 +1,6 @@
+airflow/logs/
+airflow/logs/**
+airflow/.env
+airflow/config/gcp-key.json
+
+**/__pycache__/
