@@ -63,4 +63,4 @@ All Airflow tasks complete without errors.
 
 Local outputs and BigQuery tables have been verified.
 
-![alt text](task17.png)
+![Airflow](task17.png)
